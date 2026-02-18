@@ -115,7 +115,7 @@ const buildPlatforms = [
   { os: "windows", arch: "x64", release: "2019" },
   { os: "windows", arch: "x64", baseline: true, release: "2019" },
   // TODO: Re-enable when Windows ARM64 VS component installation is resolved on Buildkite runners
-  // { os: "windows", arch: "aarch64", release: "2019" },
+  { os: "windows", arch: "aarch64", release: "2019" },
 ];
 
 /**
@@ -139,7 +139,7 @@ const testPlatforms = [
   { os: "windows", arch: "x64", release: "2019", tier: "oldest" },
   { os: "windows", arch: "x64", release: "2019", baseline: true, tier: "oldest" },
   // TODO: Enable when Windows ARM64 CI runners are ready
-  // { os: "windows", arch: "aarch64", release: "2019", tier: "oldest" },
+  { os: "windows", arch: "aarch64", release: "2019", tier: "oldest" },
 ];
 
 /**
@@ -1201,8 +1201,8 @@ async function getPipeline(options = {}) {
     buildImages || publishImages
       ? [...buildPlatforms, ...testPlatforms]
           .filter(({ os }) => os !== "darwin")
-          // Windows ARM64 cross-compiles from x64 runners, no separate image needed
-          .filter(({ os, arch }) => !(os === "windows" && arch === "aarch64"))
+          
+          
           .map(platform => [getImageKey(platform), platform])
       : [],
   );
